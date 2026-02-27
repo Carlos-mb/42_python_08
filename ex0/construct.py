@@ -31,8 +31,10 @@ SUCCESS: You're in an isolated environment!
 Safe to install packages without affecting
 the global system.
 Package installation path(s):""")
-    for path in site.getsitepackages():
-        print(path)
+    try:
+        print(site.getusersitepackages()[0])  # 0 is the most relevant
+    except (AttributeError, TypeError, IndexError) as e:
+        print(f"Can't determine package path {e}")
 
 
 if __name__ == "__main__":
