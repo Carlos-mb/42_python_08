@@ -3,11 +3,12 @@ import os
 import sys
 
 
-def main():
-    if sys.prefix == sys.base_prefix and False:
+def main() -> None:
+    if sys.prefix == sys.base_prefix:
         print(f"""
 MATRIX STATUS: You're still plugged in
-Current Python: {sys.exec_prefix}
+
+Current Python: {sys.executable}
 Virtual Environment: None detected
 
 WARNING: You're in the global environment!
@@ -24,17 +25,20 @@ Then run this program again.""")
     else:
         print(f"""
 MATRIX STATUS: Welcome to the construct
+
 Current Python: {sys.executable}
 Virtual Environment: {os.path.basename(sys.prefix)}
 Environment Path: {sys.prefix}
+
 SUCCESS: You're in an isolated environment!
 Safe to install packages without affecting
 the global system.
+
 Package installation path(s):""")
-    try:
-        print(site.getusersitepackages()[0])  # 0 is the most relevant
-    except (AttributeError, TypeError, IndexError) as e:
-        print(f"Can't determine package path {e}")
+        try:
+            print(site.getsitepackages()[0])
+        except (AttributeError, TypeError, IndexError) as e:
+            print(f"Can't determine package path {e}")
 
 
 if __name__ == "__main__":
