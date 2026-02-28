@@ -42,6 +42,10 @@ def main() -> None:
                 "\n"
                 "The Oracle sees all configurations.\n"
               )
+        if values["MATRIX_MODE"][1] == "production":
+            print("Running in PRODUCTION mode")
+        else:
+            print("Running in DEVELOPMENT mode")        
     else:
         print("Error, values not set. Current values:\n")
         # Problems with line lenght :)

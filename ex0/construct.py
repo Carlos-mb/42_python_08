@@ -4,6 +4,11 @@ import sys
 
 
 def main() -> None:
+    """Detect virtual environment by comparing:
+        sys.prefix -> current environment
+        sys.base_prefix -> base Python installation
+        If they differ, we are inside a virtual environment"""
+
     if sys.prefix == sys.base_prefix:
         print(f"""
 MATRIX STATUS: You're still plugged in
@@ -35,7 +40,10 @@ Safe to install packages without affecting
 the global system.
 
 Package installation path(s):""")
+
         try:
+            # site.getsitepackages() shows where packages are installed
+            # In a virtual env this should point inside the venv directory
             print(site.getsitepackages()[0])
         except (AttributeError, TypeError, IndexError) as e:
             print(f"Can't determine package path {e}")
